@@ -51,14 +51,23 @@ LILLA       = (204,  0,255)
 HLILLA      = (204,102,255)
 
 
+def theheartandsouloftheoperation():
+    global DISPLAY, KELL
+    pygame.init()
+    KELL = pygame.time.Clock()
+    DISPLAY = pygame.display.set_mode((AKNALAIUS, AKNAK6RGUS))
+    pygame.display.set_caption('HELLO TETRIS')
+   # while True: #mäng käib
+   #     startYOUR_ENGINES()
+   #     show("Game over")
+
+
 def tee_tyhi_laud():
     laud = []
     for i in range(LAUAK6RGUS):
         laud.append([TYHI_RUUT] * LAUALAIUS)
     return laud
 
-print(tee_tyhi_laud())
-        
-    
 
-
+#print(tee_tyhi_laud())
+theheartandsouloftheoperation() 
