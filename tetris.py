@@ -15,11 +15,11 @@ AKNALAIUS  = 640
 KASTISUURUS= 20
 LAUALAIUS  = 10
 LAUAK6RGUS = 20
-# lauasuurus on kastisuuruse järgi, ehk laius on 10*25 = 250 pikslit
+# lauasuurus on kastisuuruse järgi, ehk laius on 10*20 = 200 pikslit
 TOP_BOT_ÄÄRIS = (AKNAK6RGUS - LAUAK6RGUS*KASTISUURUS)//2
 VASAK_ÄÄRIS   = KASTISUURUS
 PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
-############### 480 - (10*25 + 25) = 205
+############### 640 - (10*20 + 20) = 420
 TYHI_RUUT = "."
 
 
@@ -172,6 +172,8 @@ def theheartandsouloftheoperation():
     pygame.init()
     KELL = pygame.time.Clock()
     DISPLAY = pygame.display.set_mode((AKNALAIUS, AKNAK6RGUS))
+    SUURFONT   = pygame.font.Font('arial.ttf', 100)
+    V2IKEFONT  = pygame.font.Font('arial.ttf', 18)
     pygame.display.set_caption('HELLO TETRIS')
    # while True: #mäng käib
    #     startYOUR_ENGINES()
@@ -183,6 +185,14 @@ def tee_tyhi_laud():
     for i in range(LAUAK6RGUS):
         laud.append([TYHI_RUUT] * LAUALAIUS)
     return laud
+
+def terminaator():
+    #delete system32
+
+def n2ita_tekstiga_akent(tekst):
+    #paneme aknasse teksti mis muutub kui vajutada nuppu
+    
+    
 
 
 #print(tee_tyhi_laud())
