@@ -52,6 +52,13 @@ TLILLA      = (153,  0,204)
 LILLA       = (204,  0,255)
 HLILLA      = (204,102,255)
 
+V2RVID = {"PUNANE"  :[TPUNANE,PUNANE,HPUNANE],
+          "ROHELINE":[TROHELINE,ROHELINE,HROHELINE],
+          "ORANZ"   :[TORANZ,ORANZ,HORANZ],
+          "SININE"  :[TSININE,SININE,HSININE],
+          "KOLLANE" :[TKOLLANE,KOLLANE,HKOLLANE],
+          "AKVA"    :[TAKVA,AKVA,HAKVA],
+          "LILLA"   :[TLILLA,LILLA,HLILLA]}
 #Kujundid
 #Defineerime kujundid kasutades .-e ja O-sid (capital o)
 #Keeramise funktsiooni asemel on lihtsam välja kirjutada kõik vormid
@@ -192,6 +199,14 @@ def terminaator():
 def n2ita_tekstiga_akent(tekst):
     #paneme aknasse teksti mis muutub kui vajutada nuppu
     
+
+def joonistakast(värv, kastx, kasty, erix=None, eriy=None):
+    if color == BLANK:
+        return
+    if erix == None and eriy == None:
+        erix = kastx
+        eriy = kasty
+    pygame.draw.rect(DISPLAY, MUST, (erix + 1, eriy + 1, KASTISUURUS - 1, KASTISUURUS - 1))
     
 
 
