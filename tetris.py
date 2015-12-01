@@ -200,22 +200,9 @@ def terminaator():
 
 def n2ita_tekstiga_akent(tekst):
     #paneme aknasse teksti mis muutub kui vajutada nuppu
-<<<<<<< HEAD
-
-def joonistakast(värv, kastx, kasty, erix=None, eriy=None):
-    if color == BLANK:
-        return
-    if erix == None and eriy == None:
-        erix = kastx
-        eriy = kasty
-    pygame.draw.rect(DISPLAY, MUST, (erix + 1, eriy + 1, KASTISUURUS - 1, KASTISUURUS - 1))
-=======
     titleSurf, titleRect = tee_teksti_objekt(tekst, SUURFONT, SININE)
     titleRect.center = (AKNALAIUS//2, AKNAK6RGUS//2)
     DISPLAY.blit(titleSurf, titleRect)
-
->>>>>>> origin/master
-    
 
     while kontrolli_nupuvajutust() == None:
         pygame.display.update()
@@ -231,6 +218,15 @@ def kontrolli_nupuvajutust():
             continue
         return event.key
     return None
+
+def joonistakast(värv, kastx, kasty, erix=None, eriy=None):
+    if color == BLANK:
+        return
+    if erix == None and eriy == None:
+        erix = kastx
+        eriy = kasty
+    pygame.draw.rect(DISPLAY, MUST, (erix + 1, eriy + 1, KASTISUURUS - 1, KASTISUURUS - 1))
+
 
 #print(tee_tyhi_laud())
 theheartandsouloftheoperation() 
