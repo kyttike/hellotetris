@@ -18,7 +18,7 @@ TOP_BOT_ÄÄRIS = (AKNAK6RGUS - LAUAK6RGUS*KASTISUURUS)//2
 VASAK_ÄÄRIS   = KASTISUURUS
 PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
 ############### 480 - (10*25 + 25) = 205
-
+TYHI_RUUT = "."
 
 
 #Värvide defineerimine
@@ -49,5 +49,16 @@ HAKVA       = (153,255,255)
 TLILLA      = (153,  0,204)
 LILLA       = (204,  0,255)
 HLILLA      = (204,102,255)
+
+
+def tee_tyhi_laud():
+    laud = []
+    for i in range(LAUAK6RGUS):
+        laud.append([TYHI_RUUT] * LAUALAIUS)
+    return laud
+
+print(tee_tyhi_laud())
+        
+    
 
 
