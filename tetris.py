@@ -8,8 +8,6 @@
 import pygame, random, sys
 from pygame.locals import *
 
-
-<<<<<<< HEAD
 AKNAK6RGUS = 640
 AKNALAIUS  = 480
 KASTISUURUS= 25
@@ -20,13 +18,6 @@ TOP_BOT_ÄÄRIS = (AKNAK6RGUS - LAUAK6RGUS*KASTISUURUS)//2
 VASAK_ÄÄRIS   = KASTISUURUS
 PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
 ############### 480 - (10*25 + 25) = 205
-VALGE = (255,255,255)
-HALL  = (185,185,185)
-MUST  = (  0,  0,  0)
-=======
-AKNAKÕRGUS = 800
-AKNALAIUS  = 640
-KASTISUURUS= 20
 
 
 VALGE       = (255,255,255)
@@ -53,6 +44,4 @@ HAKVA       = (  0,  0,  0)
 TLILLA      = (  0,  0,  0)
 LILLA       = (  0,  0,  0)
 HLILLA      = (  0,  0,  0)
-
->>>>>>> origin/master
 
