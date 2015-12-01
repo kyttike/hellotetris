@@ -20,6 +20,7 @@ PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
 ############### 480 - (10*25 + 25) = 205
 
 
+
 #Värvide defineerimine
 #Iga kasti joonistamiseks kasutame kolme värvi
 #ning kast on ümbritsetud musta joonega.
@@ -48,4 +49,5 @@ HAKVA       = (153,255,255)
 TLILLA      = (153,  0,204)
 LILLA       = (204,  0,255)
 HLILLA      = (204,102,255)
+
 
