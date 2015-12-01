@@ -50,6 +50,71 @@ TLILLA      = (153,  0,204)
 LILLA       = (204,  0,255)
 HLILLA      = (204,102,255)
 
+#Kujundid
+#Defineerime kujundid kasutades .-e ja O-sid (capital o)
+#Keeramise funktsiooni asemel on lihtsam välja kirjutada kõik vormid
+
+S_KUJUND = [[".....",
+             ".....",
+             "..OO.",
+             ".OO..",
+             "....."],
+            [".....",
+             "..O..",
+             "..OO.",
+             "...O.",
+             "......"]]
+
+Z_KUJUND = [[".....",
+             ".....",
+             ".OO..",
+             "..OO.",
+             "....."],
+            [".....",
+             "..O..",
+             ".OO..",
+             ".O...",
+             "......"]]
+
+O_KUJUND = [[".....",
+             ".....",
+             ".OO..",
+             ".OO..",
+             "....."]]
+
+I_KUJUND = [["..O..",
+             "..O..",
+             "..O..",
+             "..O.."
+             "....."],
+            [".....",
+             ".....",
+             "OOOO.",
+             ".....",
+             "....."]]
+
+T_KUJUND = [[".....",
+             "..O..",
+             ".OOO.",
+             ".....",
+             "....."],
+            [".....",
+             "..O..",
+             "..OO.",
+             "..O..",
+             "....."],
+            [".....",
+             ".....",
+             ".OOO.",
+             "..O..",
+             "....."],
+            [".....",
+             "..O..",
+             ".OO..",
+             "..O..",
+             "....."]]
+
+
 
 def theheartandsouloftheoperation():
     global DISPLAY, KELL
