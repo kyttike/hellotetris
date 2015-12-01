@@ -198,7 +198,6 @@ def terminaator():
 
 def n2ita_tekstiga_akent(tekst):
     #paneme aknasse teksti mis muutub kui vajutada nuppu
-    
 
 def joonistakast(värv, kastx, kasty, erix=None, eriy=None):
     if color == BLANK:
