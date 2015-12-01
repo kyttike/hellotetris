@@ -8,9 +8,11 @@
 import pygame, random, sys
 from pygame.locals import *
 
-AKNAK6RGUS = 640
-AKNALAIUS  = 480
-KASTISUURUS= 25
+
+FPS = "sinine"
+AKNAK6RGUS = 480
+AKNALAIUS  = 640
+KASTISUURUS= 20
 LAUALAIUS  = 10
 LAUAK6RGUS = 20
 # lauasuurus on kastisuuruse järgi, ehk laius on 10*25 = 250 pikslit
