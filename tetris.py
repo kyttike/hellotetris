@@ -175,13 +175,14 @@ KUJUNDID = {"I": I_KUJUND,
 
 
 def theheartandsouloftheoperation():
-    global DISPLAY, KELL
+    global DISPLAY, KELL, SUURFONT, V2IKEFONT
     pygame.init()
     KELL = pygame.time.Clock()
     DISPLAY = pygame.display.set_mode((AKNALAIUS, AKNAK6RGUS))
-    SUURFONT   = pygame.font.Font('arial.ttf', 100)
-    V2IKEFONT  = pygame.font.Font('arial.ttf', 18)
+    SUURFONT   = pygame.font.Font('freesansbold.ttf', 50)
+    V2IKEFONT  = pygame.font.Font('freesansbold.ttf', 18)
     pygame.display.set_caption('HELLO TETRIS')
+    n2ita_tekstiga_akent("""print("Hello TETRIS")""")
    # while True: #mäng käib
    #     startYOUR_ENGINES()
    #     show("Game over")
@@ -194,10 +195,12 @@ def tee_tyhi_laud():
     return laud
 
 def terminaator():
-    #delete system32
+    pygame.quit()
+    sys.exit()
 
 def n2ita_tekstiga_akent(tekst):
     #paneme aknasse teksti mis muutub kui vajutada nuppu
+<<<<<<< HEAD
 
 def joonistakast(värv, kastx, kasty, erix=None, eriy=None):
     if color == BLANK:
@@ -206,8 +209,28 @@ def joonistakast(värv, kastx, kasty, erix=None, eriy=None):
         erix = kastx
         eriy = kasty
     pygame.draw.rect(DISPLAY, MUST, (erix + 1, eriy + 1, KASTISUURUS - 1, KASTISUURUS - 1))
+=======
+    titleSurf, titleRect = tee_teksti_objekt(tekst, SUURFONT, SININE)
+    titleRect.center = (AKNALAIUS//2, AKNAK6RGUS//2)
+    DISPLAY.blit(titleSurf, titleRect)
+
+>>>>>>> origin/master
     
 
+    while kontrolli_nupuvajutust() == None:
+        pygame.display.update()
+        KELL.tick()
+
+def tee_teksti_objekt(tekst, font, v2rv):
+    objekt = font.render(tekst, True, v2rv)
+    return objekt, objekt.get_rect()
+
+def kontrolli_nupuvajutust():
+    for event in pygame.event.get([KEYDOWN, KEYUP]):
+        if event.type == KEYDOWN:
+            continue
+        return event.key
+    return None
 
 #print(tee_tyhi_laud())
 theheartandsouloftheoperation() 
