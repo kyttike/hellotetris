@@ -158,6 +158,13 @@ L_KUJUND = [[".....",
              "..O..",
              "....."]]
 
+KUJUNDID = {"I": I_KUJUND,
+            "J": J_KUJUND,
+            "L": L_KUJUND,
+            "O": O_KUJUND,
+            "S": S_KUJUND,
+            "Z": Z_KUJUND,
+            "T": T_KUJUND}
 
 
 def theheartandsouloftheoperation():
