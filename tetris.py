@@ -198,12 +198,23 @@ def terminaator():
     pygame.quit()
     sys.exit()
 
+def kontrolli_quiti():
+    for event in pygame.event.get(QUIT):
+        terminaator()
+    for event in pygame.event.get(KEYUP):
+        if event.key == K_ESCAPE:
+            terminaator()
+        pygame.event.post(event)
+
 def n2ita_tekstiga_akent(tekst):
     #paneme aknasse teksti mis muutub kui vajutada nuppu
     titleSurf, titleRect = tee_teksti_objekt(tekst, SUURFONT, SININE)
     titleRect.center = (AKNALAIUS//2, AKNAK6RGUS//2)
     DISPLAY.blit(titleSurf, titleRect)
 
+    nupuvajutusSurf, nupuvajutusRect = tee_teksti_objekt("Vajuta any key et mängida", V2IKEFONT, SININE)
+    nupuvajutusRect.center = (AKNALAIUS//2, AKNAK6RGUS//2+100)
+    DISPLAY.blit(nupuvajutusSurf, nupuvajutusRect)
     while kontrolli_nupuvajutust() == None:
         pygame.display.update()
         KELL.tick()
