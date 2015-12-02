@@ -230,13 +230,17 @@ def kontrolli_nupuvajutust():
         return event.key
     return None
 
-def joonistakast(värv, kastx, kasty, erix=None, eriy=None):
+def joonistakast(värv, ruudustikx, ruudustiky, lauax=None, lauay=None):
     if color == BLANK:
         return
-    if erix == None and eriy == None:
-        erix = kastx
-        eriy = kasty
-    pygame.draw.rect(DISPLAY, MUST, (erix + 1, eriy + 1, KASTISUURUS - 1, KASTISUURUS - 1))
+    if lauax == None and lauay == None:
+        lauax = ruudustikx
+        lauay = ruudustiky
+    pygame.draw.rect(ekraani_pind, MUST, (lauax-1, lauay-1, KASTISUURUS+2, KASTISUURUS+2))
+    pygame.draw.rect(ekraani_pind, värv[1], (lauax+1, lauay+1, KASTISUURUS-2, KASTISUURUS-2))
+    pygame.draw.rect(ekraani_pind, värv[2], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(ekraani_pind, värv[0], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(ekraani_pind, värv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
 
 
 #print(tee_tyhi_laud())
