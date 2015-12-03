@@ -187,7 +187,6 @@ def theheartandsouloftheoperation():
    #     startYOUR_ENGINES()
    #     show("Game over")
 
-
 def tee_tyhi_laud():
     laud = []
     for i in range(LAUAK6RGUS):
@@ -218,7 +217,7 @@ def n2ita_tekstiga_akent(tekst):
     while kontrolli_nupuvajutust() == None:
         pygame.display.update()
         KELL.tick()
-    print("jouks")
+    print("The end.")
     # selle prindi asemele tuleb hoopis runGame() funktsioon
 
 def tee_teksti_objekt(tekst, font, v2rv):
