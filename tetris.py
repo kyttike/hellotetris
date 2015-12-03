@@ -251,7 +251,9 @@ def tee_teksti_objekt(tekst, font, v2rv):
 
 def kontrolli_nupuvajutust():
     for event in pygame.event.get([KEYDOWN, KEYUP]):
-        if event.type == KEYDOWN:
+        if event.type == MOUSEBUTTONUP:
+            None
+        elif event.type == KEYDOWN:
             continue
         return event.key
     return None
