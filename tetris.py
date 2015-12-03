@@ -242,6 +242,7 @@ def n2ita_tekstiga_akent(tekst):
         pygame.display.update()
         KELL.tick()
     print("YOU WIN")
+    terminaator()
     # selle prindi asemele tuleb hoopis runGame() funktsioon
 
 
