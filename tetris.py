@@ -220,19 +220,19 @@ def n2ita_tekstiga_akent(tekst):
                 if i <=2:
                     joonistakast(VARV,k*20,i*20)
                 elif i == 3:
-                    if random.randint(1,4) <=3:
+                    if random.randint(1,5) <=3:
                         joonistakast(VARV,k*20,i*20)
                 else:
                     if random.randint(1,4) <=1:
                         joonistakast(VARV,k*20,i*20)
 
     for k in range(AKNALAIUS//20):
-        for i in range(0,3):
+        for i in range(0,5):
                 VARV = random.choice(list(V2RVID.values()))
-                if i <=0:
+                if i <=2:
                     joonistakast(VARV,k*20,AKNAK6RGUS-i*20-20)
-                elif i == 1:
-                    if random.randint(1,4) <=3:
+                elif i == 3:
+                    if random.randint(1,5) <=3:
                         joonistakast(VARV,k*20,AKNAK6RGUS-i*20-20)
                 else:
                     if random.randint(1,4) <=1:
