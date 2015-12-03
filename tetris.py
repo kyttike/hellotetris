@@ -218,8 +218,6 @@ def n2ita_tekstiga_akent(tekst):
     while kontrolli_nupuvajutust() == None:
         pygame.display.update()
         KELL.tick()
-    print("jouks")
-    # selle prindi asemele tuleb hoopis runGame() funktsioon
 
 def tee_teksti_objekt(tekst, font, v2rv):
     objekt = font.render(tekst, True, v2rv)
