@@ -214,6 +214,30 @@ def n2ita_tekstiga_akent(tekst):
     nupuvajutusSurf, nupuvajutusRect = tee_teksti_objekt("Vajuta any key et mängida", V2IKEFONT, SININE)
     nupuvajutusRect.center = (AKNALAIUS//2, AKNAK6RGUS//2+100)
     DISPLAY.blit(nupuvajutusSurf, nupuvajutusRect)
+    for k in range(AKNALAIUS//20):
+        for i in range(0,5):
+                VARV = random.choice(list(V2RVID.values()))
+                if i <=2:
+                    joonistakast(VARV,k*20,i*20)
+                elif i == 3:
+                    if random.randint(1,4) <=3:
+                        joonistakast(VARV,k*20,i*20)
+                else:
+                    if random.randint(1,4) <=1:
+                        joonistakast(VARV,k*20,i*20)
+
+    for k in range(AKNALAIUS//20):
+        for i in range(0,3):
+                VARV = random.choice(list(V2RVID.values()))
+                if i <=0:
+                    joonistakast(VARV,k*20,AKNAK6RGUS-i*20-20)
+                elif i == 1:
+                    if random.randint(1,4) <=3:
+                        joonistakast(VARV,k*20,AKNAK6RGUS-i*20-20)
+                else:
+                    if random.randint(1,4) <=1:
+                        joonistakast(VARV,k*20,AKNAK6RGUS-i*20-20)
+
     while kontrolli_nupuvajutust() == None:
         pygame.display.update()
         KELL.tick()
@@ -233,16 +257,16 @@ def kontrolli_nupuvajutust():
     return None
 
 def joonistakast(värv, ruudustikx, ruudustiky, lauax=None, lauay=None):
-    if color == BLANK:
+    if color == TYHI_RUUT:
         return
     if lauax == None and lauay == None:
         lauax = ruudustikx
         lauay = ruudustiky
-    pygame.draw.rect(ekraani_pind, MUST, (lauax-1, lauay-1, KASTISUURUS+2, KASTISUURUS+2))
-    pygame.draw.rect(ekraani_pind, värv[1], (lauax+1, lauay+1, KASTISUURUS-2, KASTISUURUS-2))
-    pygame.draw.rect(ekraani_pind, värv[2], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
-    pygame.draw.rect(ekraani_pind, värv[0], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
-    pygame.draw.rect(ekraani_pind, värv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
+    pygame.draw.rect(DISPLAY, MUST, (lauax-1, lauay-1, KASTISUURUS+2, KASTISUURUS+2))
+    pygame.draw.rect(DISPLAY, värv[1], (lauax+1, lauay+1, KASTISUURUS-2, KASTISUURUS-2))
+    pygame.draw.rect(DISPLAY, värv[2], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, värv[0], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, värv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
 
 
 #print(tee_tyhi_laud())
