@@ -184,14 +184,29 @@ def theheartandsouloftheoperation():
     V2IKEFONT  = pygame.font.Font('freesansbold.ttf', 18)
     pygame.display.set_caption('HELLO TETRIS')
     n2ita_tekstiga_akent("""print("Hello TETRIS")""")
-   # while True: #mäng käib
-   #     startYOUR_ENGINES()
-   #     show("Game over")
+    #print("YOU WIN")
+    #terminaator()
+    while True: #mäng käib
+        startYOUR_ENGINES()
+        n2ita_tekstiga_akent("Game over")
+
+def startYOUR_ENGINES():
+    # Muutujad alguses
+    laud = tee_tyhi_laud()
+    joonistam2ngulaud(laud)
+
+    # Mängu loop
+
+
+    # Joonistamisfunktsioonid
+    # pygame.display.update()
+
 
 def tee_tyhi_laud():
     laud = []
     for i in range(LAUAK6RGUS):
         laud.append([TYHI_RUUT] * LAUALAIUS)
+    print(laud)
     return laud
 
 def terminaator():
@@ -215,6 +230,7 @@ def n2ita_tekstiga_akent(tekst):
     nupuvajutusSurf, nupuvajutusRect = tee_teksti_objekt("Vajuta any key et mängida", V2IKEFONT, VALGE)
     nupuvajutusRect.center = (AKNALAIUS//2, AKNAK6RGUS//2+100)
     DISPLAY.blit(nupuvajutusSurf, nupuvajutusRect)
+    
     for k in range(AKNALAIUS//20):
         for i in range(0,5):
                 while True:
@@ -248,9 +264,6 @@ def n2ita_tekstiga_akent(tekst):
     while kontrolli_nupuvajutust() == None:
         pygame.display.update()
         KELL.tick()
-    print("YOU WIN")
-    terminaator()
-    # selle prindi asemele tuleb hoopis runGame() funktsioon
 
 
 def tee_teksti_objekt(tekst, font, v2rv):
@@ -284,6 +297,17 @@ def joonistam2ngulaud(m2ngulaud):
     for x in range(LAUALAIUS):
         for y in range(LAUAK6RGUS):
             joonistakast(V2RVID[m2ngulaud[x][y]],x,y)
+
+def joonistaseis(skoor, level):
+    skoorSurf = V2IKEFONT.render("Skoor: %s" % skoor, True, VALGE)
+    skoorRect = skoorSurf.get_rect()
+    skoorRect.topleft = (WINDOWWIDTH - 100, 20) # ajutine
+    DISPLAY.blit(skoorSurf, skoorRect)
+
+    levelSurf = V2IKEFONT.render("Level: %s" % level, True, VALGE)
+    levelRect = levelSurf.get_rect()
+    levelRect.topleft = (WINDOWWIDTH - 100, 50) # see on ajutine
+    DISPLAY.blit(levelSurf, levelRect)
 
 
 def ruudustikTOlaud(ruudustikx, ruudustiky):
