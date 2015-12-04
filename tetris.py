@@ -58,7 +58,8 @@ V2RVID = {"PUNANE"  :[TPUNANE,PUNANE,HPUNANE],
           "SININE"  :[TSININE,SININE,HSININE],
           "KOLLANE" :[TKOLLANE,KOLLANE,HKOLLANE],
           "AKVA"    :[TAKVA,AKVA,HAKVA],
-          "LILLA"   :[TLILLA,LILLA,HLILLA]}
+          "LILLA"   :[TLILLA,LILLA,HLILLA],
+          "."       :"."}
 #Kujundid
 #Defineerime kujundid kasutades .-e ja O-sid (capital o)
 #Keeramise funktsiooni asemel on lihtsam välja kirjutada kõik vormid
@@ -207,36 +208,42 @@ def kontrolli_quiti():
 
 def n2ita_tekstiga_akent(tekst):
     #paneme aknasse teksti mis muutub kui vajutada nuppu
-    titleSurf, titleRect = tee_teksti_objekt(tekst, SUURFONT, SININE)
+    titleSurf, titleRect = tee_teksti_objekt(tekst, SUURFONT, VALGE)
     titleRect.center = (AKNALAIUS//2, AKNAK6RGUS//2)
     DISPLAY.blit(titleSurf, titleRect)
 
-    nupuvajutusSurf, nupuvajutusRect = tee_teksti_objekt("Vajuta any key et mängida", V2IKEFONT, SININE)
+    nupuvajutusSurf, nupuvajutusRect = tee_teksti_objekt("Vajuta any key et mängida", V2IKEFONT, VALGE)
     nupuvajutusRect.center = (AKNALAIUS//2, AKNAK6RGUS//2+100)
     DISPLAY.blit(nupuvajutusSurf, nupuvajutusRect)
     for k in range(AKNALAIUS//20):
         for i in range(0,5):
-                VARV = random.choice(list(V2RVID.values()))
+                while True:
+                    VARV = random.choice(list(V2RVID.values()))
+                    if VARV != ".":
+                        break
                 if i <=2:
-                    joonistakast(VARV,k*20,i*20)
+                    joonistakast(VARV,0,0,k*20,i*20)
                 elif i == 3:
                     if random.randint(1,5) <=3:
-                        joonistakast(VARV,k*20,i*20)
+                        joonistakast(VARV,0,0,k*20,i*20)
                 else:
                     if random.randint(1,4) <=1:
-                        joonistakast(VARV,k*20,i*20)
+                        joonistakast(VARV,0,0,k*20,i*20)
 
     for k in range(AKNALAIUS//20):
         for i in range(0,5):
-                VARV = random.choice(list(V2RVID.values()))
+                while True:
+                    VARV = random.choice(list(V2RVID.values()))
+                    if VARV != ".":
+                        break
                 if i <=2:
-                    joonistakast(VARV,k*20,AKNAK6RGUS-i*20-20)
+                    joonistakast(VARV,0,0,k*20,AKNAK6RGUS-i*20-20)
                 elif i == 3:
                     if random.randint(1,5) <=3:
-                        joonistakast(VARV,k*20,AKNAK6RGUS-i*20-20)
+                        joonistakast(VARV,0,0,k*20,AKNAK6RGUS-i*20-20)
                 else:
                     if random.randint(1,4) <=1:
-                        joonistakast(VARV,k*20,AKNAK6RGUS-i*20-20)
+                        joonistakast(VARV,0,0,k*20,AKNAK6RGUS-i*20-20)
 
     while kontrolli_nupuvajutust() == None:
         pygame.display.update()
@@ -259,18 +266,30 @@ def kontrolli_nupuvajutust():
         return event.key
     return None
 
-def joonistakast(värv, ruudustikx, ruudustiky, lauax=None, lauay=None):
-    if color == TYHI_RUUT:
+#See joonistab ilusa kasti
+def joonistakast(v2rv, ruudustikx, ruudustiky, lauax=None, lauay=None):
+    if v2rv == TYHI_RUUT:
         return
     if lauax == None and lauay == None:
-        lauax = ruudustikx
-        lauay = ruudustiky
+        lauax, lauay = ruudustikTOlaud(ruudustikx, ruudustiky)
     pygame.draw.rect(DISPLAY, MUST, (lauax-1, lauay-1, KASTISUURUS+2, KASTISUURUS+2))
-    pygame.draw.rect(DISPLAY, värv[1], (lauax+1, lauay+1, KASTISUURUS-2, KASTISUURUS-2))
-    pygame.draw.rect(DISPLAY, värv[2], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
-    pygame.draw.rect(DISPLAY, värv[0], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
-    pygame.draw.rect(DISPLAY, värv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
+    pygame.draw.rect(DISPLAY, v2rv[1], (lauax+1, lauay+1, KASTISUURUS-2, KASTISUURUS-2))
+    pygame.draw.rect(DISPLAY, v2rv[2], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, v2rv[0], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, v2rv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
 
+def joonistam2ngulaud(m2ngulaud):
+    #Ilusad ajsad ümber mängulaua on vaja ise leiutada
+
+    for x in range(LAUALAIUS):
+        for y in range(LAUAK6RGUS):
+            joonistakast(V2RVID[m2ngulaud[x][y]],x,y)
+
+
+def ruudustikTOlaud(ruudustikx, ruudustiky):
+    lauax = VASAK_ÄÄRIS + (ruudustikx * KASTISUURUS)
+    lauay = TOP_BOT_ÄÄRIS + (ruudustiky * KASTISUURUS)
+    return lauax, lauay
 
 #print(tee_tyhi_laud())
 theheartandsouloftheoperation() 
