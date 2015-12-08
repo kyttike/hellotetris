@@ -252,29 +252,29 @@ def startYOUR_ENGINES():
                     liigub_paremale = True
                     liigub_vasakule = False
                     #aeg
-            elif (event.key == K_UP or event.key == K_w):
-                langevklots['asend'] = (langevklots['asend'] + 1) % len(KUJUNDID[langevklots['kuju']])
-                if not onsobivasend(laud, langevklots):
-                    langevklots['asend'] = (langevklots['asend'] - 1) % len(KUJUNDID[langevklots['kuju']])
-            elif (event.key == K_q):
-                langevklots['asend'] = (langevklots['asend'] - 1) % len(KUJUNDID[langevklots['kuju']])
-                if not onsobivasend(laud, langevklots):
+                elif (event.key == K_UP or event.key == K_w):
                     langevklots['asend'] = (langevklots['asend'] + 1) % len(KUJUNDID[langevklots['kuju']])
+                    if not onsobivasend(laud, langevklots):
+                        langevklots['asend'] = (langevklots['asend'] - 1) % len(KUJUNDID[langevklots['kuju']])
+                elif (event.key == K_q):
+                    langevklots['asend'] = (langevklots['asend'] - 1) % len(KUJUNDID[langevklots['kuju']])
+                    if not onsobivasend(laud, langevklots):
+                        langevklots['asend'] = (langevklots['asend'] + 1) % len(KUJUNDID[langevklots['kuju']])
 
-            elif (event.key == K_DOWN or event.key == K_s):
-                liigub_alla = True:
-                if onsobivasend(laud, langevklots, adjy = 1):
-                    langevklots['y'] += 1
-                #aeg
+                elif (event.key == K_DOWN or event.key == K_s):
+                    liigub_alla = True
+                    if onsobivasend(laud, langevklots, adjy = 1):
+                        langevklots['y'] += 1
+                    #aeg
 
-            elif event.key == K_SPACE:
-                liigub_alla = False
-                liigub_paremale = False
-                liigub_vasakule = False
-                for i in range(1, LAIAK6RGUS):
-                    if not onsobivasend(laud, langevklots, adjy=i):
-                        break
-                langevklots['y'] += i - 1
+                elif event.key == K_SPACE:
+                    liigub_alla = False
+                    liigub_paremale = False
+                    liigub_vasakule = False
+                    for i in range(1, LAUAK6RGUS):
+                        if not onsobivasend(laud, langevklots, adjy=i):
+                            break
+                    langevklots['y'] += i - 1
         # Joonistamisfunktsioonid
         DISPLAY.fill(TAUSTAV2RV)
         joonistalaud(laud)
