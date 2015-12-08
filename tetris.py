@@ -51,7 +51,9 @@ TLILLA      = (153,  0,204)
 LILLA       = (204,  0,255)
 HLILLA      = (204,102,255)
 
-TAUSTAV2RV = HALL
+TAUSTAV2RV  = (221,238,255)
+LAUAV2RV    = (195,213,234)
+LAUA22R     = (102,119,153)
 
 V2RVID = {"PUNANE"  :[TPUNANE,PUNANE,HPUNANE],
           "ROHELINE":[TROHELINE,ROHELINE,HROHELINE],
@@ -301,8 +303,8 @@ def joonistakast(v2rv, ruudustikx, ruudustiky, lauax=None, lauay=None):
     pygame.draw.rect(DISPLAY, v2rv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
 
 def joonistalaud(m2ngulaud):
-    #Ilusad ajsad ümber mängulaua on vaja ise leiutada
-    pygame.draw.rect(DISPLAY, SININE, (VASAK_ÄÄRIS ,TOP_BOT_ÄÄRIS, (LAUALAIUS * KASTISUURUS), (LAUAK6RGUS * KASTISUURUS)), 10)
+    pygame.draw.rect(DISPLAY, LAUA22R, (VASAK_ÄÄRIS-4 ,TOP_BOT_ÄÄRIS-4, (LAUALAIUS * KASTISUURUS)+8, (LAUAK6RGUS * KASTISUURUS)+8), 0)
+    pygame.draw.rect(DISPLAY, LAUAV2RV, (VASAK_ÄÄRIS ,TOP_BOT_ÄÄRIS, (LAUALAIUS * KASTISUURUS), (LAUAK6RGUS * KASTISUURUS)), 0)
     for x in range(LAUALAIUS):
         for y in range(LAUAK6RGUS):
             joonistakast(V2RVID[m2ngulaud[y][x]],x,y)
