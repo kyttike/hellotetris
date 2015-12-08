@@ -14,10 +14,10 @@ AKNAK6RGUS = 480
 AKNALAIUS  = 640
 KASTISUURUS= 20
 LAUALAIUS  = 10
-LAUAK6RGUS = 20
+LAUAK6RGUS = 18
 # lauasuurus on kastisuuruse järgi, ehk laius on 10*20 = 200 pikslit
 TOP_BOT_ÄÄRIS = (AKNAK6RGUS - LAUAK6RGUS*KASTISUURUS)//2
-VASAK_ÄÄRIS   = KASTISUURUS
+VASAK_ÄÄRIS   = KASTISUURUS+100
 PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
 ############### 640 - (10*20 + 20) = 420
 TYHI_RUUT = "."
@@ -305,7 +305,7 @@ def joonistalaud(m2ngulaud):
     pygame.draw.rect(DISPLAY, SININE, (VASAK_ÄÄRIS ,TOP_BOT_ÄÄRIS, (LAUALAIUS * KASTISUURUS), (LAUAK6RGUS * KASTISUURUS)), 10)
     for x in range(LAUALAIUS):
         for y in range(LAUAK6RGUS):
-            joonistakast(V2RVID[m2ngulaud[x][y]],x,y)
+            joonistakast(V2RVID[m2ngulaud[y][x]],x,y)
 
 def joonistaseis(skoor, level):
     skoorSurf = V2IKEFONT.render("Skoor: %s" % skoor, True, VALGE)
