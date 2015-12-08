@@ -203,7 +203,7 @@ def theheartandsouloftheoperation():
     n2ita_tekstiga_akent("""print("Hello TETRIS")""",VALGE)
     while True: #mäng käib
         startYOUR_ENGINES()
-        n2ita_tekstiga_akent("Game over")
+        n2ita_tekstiga_akent("Game over", SININE)
 
 def startYOUR_ENGINES():
     laud = tee_tyhi_laud()
@@ -278,26 +278,27 @@ def startYOUR_ENGINES():
                         if not onsobivasend(laud, langevklots, adjy=i):
                             break
                     langevklots['y'] += i - 1
-            if (liigub_vasakule or liigub_paremale) and time.time() - kylg_aeg > KYLGSAGEDUS:
-                if liigub_vasakule and onsobivasend(laud, lagevklots, adjx=-1):
-                    langevklots['x'] -= 1
-                elif liigub_paremale and onsobivasend(laud, langevklots, adjx=1):
-                    langevklots['x'] += 1
-                kylg_aeg = time.time()
+                    
+        if (liigub_vasakule or liigub_paremale) and time.time() - kylg_aeg > KYLGSAGEDUS:
+            if liigub_vasakule and onsobivasend(laud, langevklots, adjx=-1):
+                langevklots['x'] -= 1
+            elif liigub_paremale and onsobivasend(laud, langevklots, adjx=1):
+                langevklots['x'] += 1
+            kylg_aeg = time.time()
 
-            if liigub_alla and time.time() - allah_aeg > ALLAHSAGEDUS and onsobivasend(laud, langevklots, adjy=1):
+        if liigub_alla and time.time() - allah_aeg > ALLAHSAGEDUS and onsobivasend(laud, langevklots, adjy=1):
+            langevklots['y'] += 1
+            allah_aeg = time.time()
+
+        if time.time() - kukkumis_aeg > langemissagedus:
+            if not onsobivasend(laud, langevklots, adjy=1):
+                lisalauale(laud, langevklots)
+                skoor += 1
+                level, langemissagedus = arvuta_level_ja_langemissagedus(skoor)
+                langevklots = None
+            else:
                 langevklots['y'] += 1
-                allah_aeg = time.time()
-
-            if time.time() - kukkumis_aeg > langemissagedus:
-                if not onsobivasend(laud, langevklots, adjy=1):
-                    lisalauale(laud, langevklots)
-                    skoor += 1
-                    level, langemissagedus = arvuta_level_ja_langemissagedus(skoor)
-                    langevklots = None
-                else:
-                    langevklots['y'] += 1
-                    kukkumis_aeg = time.time()
+                kukkumis_aeg = time.time()
                 
         # Joonistamisfunktsioonid
         DISPLAY.fill(TAUSTAV2RV)
@@ -403,8 +404,8 @@ def joonistakast(v2rv, ruudustikx, ruudustiky, lauax=None, lauay=None):
         lauax, lauay = ruudustikTOlaud(ruudustikx, ruudustiky)
     pygame.draw.rect(DISPLAY, MUST, (lauax-1, lauay-1, KASTISUURUS+2, KASTISUURUS+2))
     pygame.draw.rect(DISPLAY, v2rv[1], (lauax+1, lauay+1, KASTISUURUS-2, KASTISUURUS-2))
-    pygame.draw.rect(DISPLAY, v2rv[0], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
-    pygame.draw.rect(DISPLAY, v2rv[2], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, v2rv[2], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, v2rv[0], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
     pygame.draw.rect(DISPLAY, v2rv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
 
 def joonistalaud(m2ngulaud):
@@ -453,7 +454,7 @@ def lisalauale(laud, klots):
     for x in range(KUJUNDILAIUS):
         for y in range(KUJUNDIK6RGUS):
             if KUJUNDID[klots['kuju']][klots['asend']][y][x] != TYHI_RUUT:
-                laud[x + klots['x']][y + klots['y']] = klots['v2rv']
+                laud[y + klots['y']][x + klots['x']] = klots['v2rv']
 
 def ruudustikTOlaud(ruudustikx, ruudustiky):
     lauax = VASAK_ÄÄRIS + (ruudustikx * KASTISUURUS)
@@ -471,9 +472,9 @@ def onsobivasend(laud, klots, adjx=0, adjy=0):
                 continue
             if not onlaual(x + klots['x'] + adjx, y + klots['y'] + adjy):
                 return False
-            print(laud)
-            print(x + klots['x'] + adjx)
-            print(y + klots['y'] + adjy)
+##            print(laud)
+##            print(x + klots['x'] + adjx)
+##            print(y + klots['y'] + adjy)
             if laud[y + klots['y'] + adjy][x + klots['x'] + adjx] != TYHI_RUUT:
                 return False
     return True
