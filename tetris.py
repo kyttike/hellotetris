@@ -9,7 +9,7 @@ import pygame, random, sys
 from pygame.locals import *
 
 
-FPS = "sinine"
+FPS = 1
 AKNAK6RGUS = 480
 AKNALAIUS  = 640
 KASTISUURUS= 20
@@ -21,7 +21,6 @@ VASAK_ÄÄRIS   = KASTISUURUS
 PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
 ############### 640 - (10*20 + 20) = 420
 TYHI_RUUT = "."
-
 
 #Värvide defineerimine
 #Iga kasti joonistamiseks kasutame kolme värvi
@@ -51,6 +50,8 @@ HAKVA       = (153,255,255)
 TLILLA      = (153,  0,204)
 LILLA       = (204,  0,255)
 HLILLA      = (204,102,255)
+
+TAUSTAV2RV = HALL
 
 V2RVID = {"PUNANE"  :[TPUNANE,PUNANE,HPUNANE],
           "ROHELINE":[TROHELINE,ROHELINE,HROHELINE],
@@ -193,14 +194,22 @@ def theheartandsouloftheoperation():
 def startYOUR_ENGINES():
     # Muutujad alguses
     laud = tee_tyhi_laud()
-    joonistam2ngulaud(laud)
+    seis = 0
+    level = 1 # tuleb teha funktsiooniga, et arvutaks
 
     # Mängu loop
+    while True:
 
-
-    # Joonistamisfunktsioonid
-    # pygame.display.update()
-
+        # Joonistamisfunktsioonid
+        DISPLAY.fill(TAUSTAV2RV)
+        joonistalaud(laud)
+        joonistaseis(seis, level)
+        #joonistauusklots(uusklots)
+        #if langevklots != None:
+        #   joonistaklots(langevklots)
+        
+        # pygame.display.update()
+        KELL.tick(FPS)
 
 def tee_tyhi_laud():
     laud = []
@@ -235,7 +244,7 @@ def n2ita_tekstiga_akent(tekst):
         for i in range(0,5):
                 while True:
                     VARV = random.choice(list(V2RVID.values()))
-                    if VARV != ".":
+                    if VARV != TYHI_RUUT:
                         break
                 if i <=2:
                     joonistakast(VARV,0,0,k*20,i*20)
@@ -250,7 +259,7 @@ def n2ita_tekstiga_akent(tekst):
         for i in range(0,5):
                 while True:
                     VARV = random.choice(list(V2RVID.values()))
-                    if VARV != ".":
+                    if VARV != TYHI_RUUT:
                         break
                 if i <=2:
                     joonistakast(VARV,0,0,k*20,AKNAK6RGUS-i*20-20)
@@ -291,22 +300,22 @@ def joonistakast(v2rv, ruudustikx, ruudustiky, lauax=None, lauay=None):
     pygame.draw.rect(DISPLAY, v2rv[0], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
     pygame.draw.rect(DISPLAY, v2rv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
 
-def joonistam2ngulaud(m2ngulaud):
+def joonistalaud(m2ngulaud):
     #Ilusad ajsad ümber mängulaua on vaja ise leiutada
 
-    for x in range(LAUALAIUS):
-        for y in range(LAUAK6RGUS):
-            joonistakast(V2RVID[m2ngulaud[x][y]],x,y)
+    for y in range(LAUAK6RGUS):
+        for x in range(LAUALAIUS):
+            joonistakast(V2RVID[m2ngulaud[y][x]],x,y)
 
 def joonistaseis(skoor, level):
     skoorSurf = V2IKEFONT.render("Skoor: %s" % skoor, True, VALGE)
     skoorRect = skoorSurf.get_rect()
-    skoorRect.topleft = (WINDOWWIDTH - 100, 20) # ajutine
+    skoorRect.topleft = (AKNALAIUS - 100, 20) # ajutine
     DISPLAY.blit(skoorSurf, skoorRect)
 
     levelSurf = V2IKEFONT.render("Level: %s" % level, True, VALGE)
     levelRect = levelSurf.get_rect()
-    levelRect.topleft = (WINDOWWIDTH - 100, 50) # see on ajutine
+    levelRect.topleft = (AKNALAIUS - 100, 50) # see on ajutine
     DISPLAY.blit(levelSurf, levelRect)
 
 
