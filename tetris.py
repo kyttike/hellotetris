@@ -20,7 +20,9 @@ TOP_BOT_ÄÄRIS = (AKNAK6RGUS - LAUAK6RGUS*KASTISUURUS)//2
 VASAK_ÄÄRIS   = KASTISUURUS
 PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
 ############### 640 - (10*20 + 20) = 420
-TYHI_RUUT = "."
+TYHI_RUUT       = "."
+KUJUNDILAIUS    = 5
+KUJUNDIK6RGUS   = 5
 
 #Värvide defineerimine
 #Iga kasti joonistamiseks kasutame kolme värvi
@@ -51,6 +53,7 @@ TLILLA      = (153,  0,204)
 LILLA       = (204,  0,255)
 HLILLA      = (204,102,255)
 
+TEKSTIV2RV  = MUST
 TAUSTAV2RV  = (221,238,255)
 LAUAV2RV    = (195,213,234)
 LAUA22R     = (102,119,153)
@@ -177,6 +180,14 @@ KUJUNDID = {"I": I_KUJUND,
             "Z": Z_KUJUND,
             "T": T_KUJUND}
 
+KUJUNDV2RV = {"I": "ORANZ",
+              "J": "LILLA",
+              "L": "SININE",
+              "O": "PUNANE",
+              "S": "AKVA",
+              "Z": "ROHELINE",
+              "T": "KOLLANE"}
+
 
 def theheartandsouloftheoperation():
     global DISPLAY, KELL, SUURFONT, V2IKEFONT
@@ -280,6 +291,15 @@ def tee_teksti_objekt(tekst, font, v2rv):
     objekt = font.render(tekst, True, v2rv)
     return objekt, objekt.get_rect()
 
+def teeuusklots():
+    kuju = random.choice(list(KUJUNDID.keys()))
+    uusklots = {"kuju": kuju,
+                "asend": random.randint(0, len(KUJUNDID[kuju])-1),
+                "x": int(LAUALAIUS / 2) - int(KUJUNDILAIUS / 2),
+                "y": 0 - int(KUJUNDIK6RGUS / 2),
+                "v2rv": KUJUNDV2RV[kuju]}
+    return uusklots
+
 def kontrolli_nupuvajutust():
     for event in pygame.event.get([KEYDOWN, KEYUP]):
         if event.type == MOUSEBUTTONUP:
@@ -309,15 +329,33 @@ def joonistalaud(m2ngulaud):
             joonistakast(V2RVID[m2ngulaud[y][x]],x,y)
 
 def joonistaseis(skoor, level):
-    skoorSurf = V2IKEFONT.render("Skoor: %s" % skoor, True, VALGE)
+    skoorSurf = V2IKEFONT.render("Skoor: %s" % skoor, True, TEKSTIV2RV)
     skoorRect = skoorSurf.get_rect()
     skoorRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 20) # ajutine
     DISPLAY.blit(skoorSurf, skoorRect)
 
-    levelSurf = V2IKEFONT.render("Level: %s" % level, True, VALGE)
+    levelSurf = V2IKEFONT.render("Level: %s" % level, True, TEKSTIV2RV)
     levelRect = levelSurf.get_rect()
     levelRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 50) # see on ajutine
     DISPLAY.blit(levelSurf, levelRect)
+
+def joonistaklots(klots, lauax=None, lauay=None):
+    joonistan = KUJUNDID[klots["kuju"]][klots["asend"]]
+    if lauax == None and lauay == None:
+        lauax, lauay = ruudustikTOlaud(klots["x"],klots["y"])
+
+    for x in range(KUJUNDILAIUS):
+        for y in range(KUJUNDIK6RGUS):
+            if joonistan[y][x] != TYHI_RUUT:
+                joonistakast(klots["v2rv"], None, None, lauax + (x*KASTISUURUS), lauay + (y*KASTISUURUS))
+
+def joonistauusklots(klots):
+    j2rgmineSurf = V2IKEFONT.render("Järgmine:", True, TEKSTIV2RV)
+    j2rgmineRect = j2rgmineSurf.get_rect()
+    j2rgmineRect.topleft = (AKNALAIUS-120, 80)
+    DISPLAY.blit(j2rgmineSurf,j2rgmineRect)
+    joonistaklots(klots,(AKNALAIUS-120), 100)
+    return
 
 
 def ruudustikTOlaud(ruudustikx, ruudustiky):
