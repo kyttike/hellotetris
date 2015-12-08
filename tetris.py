@@ -203,7 +203,8 @@ def theheartandsouloftheoperation():
     n2ita_tekstiga_akent("""print("Hello TETRIS")""",VALGE)
     while True: #mäng käib
         startYOUR_ENGINES()
-        n2ita_tekstiga_akent("Game over", SININE)
+        DISPLAY.fill(MUST)
+        n2ita_tekstiga_akent("Game over", VALGE)
 
 def startYOUR_ENGINES():
     laud = tee_tyhi_laud()
@@ -404,8 +405,8 @@ def joonistakast(v2rv, ruudustikx, ruudustiky, lauax=None, lauay=None):
         lauax, lauay = ruudustikTOlaud(ruudustikx, ruudustiky)
     pygame.draw.rect(DISPLAY, MUST, (lauax-1, lauay-1, KASTISUURUS+2, KASTISUURUS+2))
     pygame.draw.rect(DISPLAY, v2rv[1], (lauax+1, lauay+1, KASTISUURUS-2, KASTISUURUS-2))
-    pygame.draw.rect(DISPLAY, v2rv[2], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
-    pygame.draw.rect(DISPLAY, v2rv[0], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, v2rv[0], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, v2rv[2], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
     pygame.draw.rect(DISPLAY, v2rv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
 
 def joonistalaud(m2ngulaud):
@@ -487,5 +488,25 @@ def arvuta_level_ja_langemissagedus(skoor):
     langemissagedus = 0.27 - (level * 0.02)
     return level, langemissagedus
 
+def ont2isrida(laud, y):
+    for x in range(LAUALAIUS):
+        if laud[x][y] == TYHI_RUUT:
+            return False
+    return True
+
+def eemaldat2isread(laud):
+    eemaldatud = 0
+    y = LAUAK6RGUS - 1
+    while y >= 0:
+        if ont2isrida(laud, y):
+            for yleminealla in range(y, 0, -1):
+                for x in range(LAUALAIUS):
+                    laud[x][yleminealla] = laud[x][yleminealla-1]
+            for x in range(LAUALAIUS):
+                board[x][0] = TYHI_RUUT
+            eemaldatud += 1
+        else:
+            y -= 1
+    return eemaldatud
 #print(tee_tyhi_laud())
 theheartandsouloftheoperation() 
