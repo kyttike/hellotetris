@@ -201,14 +201,11 @@ def theheartandsouloftheoperation():
     V2IKEFONT  = pygame.font.Font('freesansbold.ttf', 18)
     pygame.display.set_caption('HELLO TETRIS')
     n2ita_tekstiga_akent("""print("Hello TETRIS")""",VALGE)
-    #print("YOU WIN")
-    #terminaator()
     while True: #mäng käib
         startYOUR_ENGINES()
         n2ita_tekstiga_akent("Game over")
 
 def startYOUR_ENGINES():
-    # Muutujad alguses
     laud = tee_tyhi_laud()
     allah_aeg = time.time()
     kylg_aeg = time.time()
@@ -222,7 +219,7 @@ def startYOUR_ENGINES():
     langevklots = teeuusklots()
     j2rgmineklots = teeuusklots()
     
-    # Mängu loop
+    # Mängu Uno Loop
     while True:
         if langevklots == None:
             langevklots = j2rgmineklots
@@ -292,7 +289,7 @@ def startYOUR_ENGINES():
                 langevklots['y'] += 1
                 allah_aeg = time.time()
 
-            if time.time() - allah_aeg > langemissagedus:
+            if time.time() - kukkumis_aeg > langemissagedus:
                 if not onsobivasend(laud, langevklots, adjy=1):
                     lisalauale(laud, langevklots)
                     skoor += 1
@@ -300,7 +297,7 @@ def startYOUR_ENGINES():
                     langevklots = None
                 else:
                     langevklots['y'] += 1
-                    allah_aeg = time.time()
+                    kukkumis_aeg = time.time()
                 
         # Joonistamisfunktsioonid
         DISPLAY.fill(TAUSTAV2RV)
@@ -486,7 +483,7 @@ def arvuta_level_ja_langemissagedus(skoor):
     #langemissagedus on sekundites, et
     #mitu sekundit kulub enne kui klots liigub ühe ruudu võrra
     level = int(skoor//10)+1
-    langemissagedus = 0.3 - (level * 0.02)
+    langemissagedus = 0.27 - (level * 0.02)
     return level, langemissagedus
 
 #print(tee_tyhi_laud())
