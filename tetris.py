@@ -5,7 +5,7 @@
 #2015                                #
 ######################################
 
-import pygame, random, sys
+import pygame, random, sys, time
 from pygame.locals import *
 
 
@@ -23,6 +23,9 @@ PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
 TYHI_RUUT       = "."
 KUJUNDILAIUS    = 5
 KUJUNDIK6RGUS   = 5
+
+KYLGSAGEDUS = 0.15
+ALLAHSAGEDUS = 0.1
 
 #Värvide defineerimine
 #Iga kasti joonistamiseks kasutame kolme värvi
@@ -207,17 +210,17 @@ def theheartandsouloftheoperation():
 def startYOUR_ENGINES():
     # Muutujad alguses
     laud = tee_tyhi_laud()
-    #aeg
-    #aeg
-    #aeg
+    allah_aeg = time.time()
+    kylg_aeg = time.time()
+    kukkumis_aeg = time.time()
     skoor = 0
-    level, langemiskiirus = arvuta_level_ja_langemiskiirus(skoor)
+    level, langemissagedus = arvuta_level_ja_langemissagedus(skoor)
     liigub_alla = False
     liigub_paremale = False
     liigub_vasakule = False
 
-    #langevklots = teeuusklots()
-    #j2rgmineklots = teeuusklots()
+    langevklots = teeuusklots()
+    j2rgmineklots = teeuusklots()
     
     # Mängu loop
     while True:
@@ -234,6 +237,9 @@ def startYOUR_ENGINES():
                 if (event.key == K_p):
                     DISPLAY.fill(TAUSTAV2RV)
                     n2ita_tekstiga_akent("""print("Hello PAUS")""",MUST)
+                    kukkumis_aeg = time.time()
+                    allah_aeg = time.time()
+                    kylg_aeg = time.time()
                 elif (event.key == K_LEFT or event.key == K_a):
                     liigub_vasakule = False
                 elif (event.key == K_RIGHT or event.key == K_d):
@@ -246,12 +252,12 @@ def startYOUR_ENGINES():
                     langevklots['x'] -= 1
                     liigub_vasakule = True
                     liigub_paremale = False
-                    #aeg
+                    kylg_aeg = time.time()
                 elif (event.key == K_RIGHT or event.key == K_d) and onsobivasend(laud, langevklots, adjx=1):
                     langevklots['x'] += 1
                     liigub_paremale = True
                     liigub_vasakule = False
-                    #aeg
+                    kylg_aeg = time.time()
                 elif (event.key == K_UP or event.key == K_w):
                     langevklots['asend'] = (langevklots['asend'] + 1) % len(KUJUNDID[langevklots['kuju']])
                     if not onsobivasend(laud, langevklots):
@@ -265,7 +271,7 @@ def startYOUR_ENGINES():
                     liigub_alla = True
                     if onsobivasend(laud, langevklots, adjy = 1):
                         langevklots['y'] += 1
-                    #aeg
+                    allah_aeg = time.time()
 
                 elif event.key == K_SPACE:
                     liigub_alla = False
@@ -275,13 +281,34 @@ def startYOUR_ENGINES():
                         if not onsobivasend(laud, langevklots, adjy=i):
                             break
                     langevklots['y'] += i - 1
+            if (liigub_vasakule or liigub_paremale) and time.time() - kylg_aeg > KYLGSAGEDUS:
+                if liigub_vasakule and onsobivasend(laud, lagevklots, adjx=-1):
+                    langevklots['x'] -= 1
+                elif liigub_paremale and onsobivasend(laud, langevklots, adjx=1):
+                    langevklots['x'] += 1
+                kylg_aeg = time.time()
+
+            if liigub_alla and time.time() - allah_aeg > ALLAHSAGEDUS and onsobivasend(laud, langevklots, adjy=1):
+                langevklots['y'] += 1
+                allah_aeg = time.time()
+
+            if time.time() - allah_aeg > langemissagedus:
+                if not onsobivasend(laud, langevklots, adjy=1):
+                    lisalauale(laud, langevklots)
+                    skoor += 1
+                    level, langemissagedus = arvuta_level_ja_langemissagedus(skoor)
+                    langevklots = None
+                else:
+                    langevklots['y'] += 1
+                    allah_aeg = time.time()
+                
         # Joonistamisfunktsioonid
         DISPLAY.fill(TAUSTAV2RV)
         joonistalaud(laud)
         joonistaseis(skoor, level)
-        #joonistauusklots(uusklots)
-        #if langevklots != None:
-        #   joonistaklots(langevklots)
+        joonistauusklots(j2rgmineklots)
+        if langevklots != None:
+           joonistaklots(langevklots)
         
         pygame.display.update()
         KELL.tick(FPS)
@@ -447,17 +474,20 @@ def onsobivasend(laud, klots, adjx=0, adjy=0):
                 continue
             if not onlaual(x + klots['x'] + adjx, y + klots['y'] + adjy):
                 return False
-            if laud[x + klots['x'] + ajdx][y + klots['y'] + adjy] != TYHI_RUUT:
+            print(laud)
+            print(x + klots['x'] + adjx)
+            print(y + klots['y'] + adjy)
+            if laud[x + klots['x'] + adjx][y + klots['y'] + adjy] != TYHI_RUUT:
                 return False
     return True
     
 
-def arvuta_level_ja_langemiskiirus(skoor):
-    #langemiskiirus on sekundites, et
+def arvuta_level_ja_langemissagedus(skoor):
+    #langemissagedus on sekundites, et
     #mitu sekundit kulub enne kui klots liigub ühe ruudu võrra
     level = int(skoor//10)+1
-    langemiskiirus = 0.3 - (level * 0.02)
-    return level, langemiskiirus
+    langemissagedus = 0.3 - (level * 0.02)
+    return level, langemissagedus
 
 #print(tee_tyhi_laud())
 theheartandsouloftheoperation() 
