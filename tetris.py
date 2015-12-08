@@ -11,13 +11,13 @@ from pygame.locals import *
 
 FPS = 60
 AKNAK6RGUS = 480
-AKNALAIUS  = 640
-KASTISUURUS= 20
+AKNALAIUS  = 650
+KASTISUURUS= 25
 LAUALAIUS  = 10
 LAUAK6RGUS = 18
 # lauasuurus on kastisuuruse järgi, ehk laius on 10*20 = 200 pikslit
 TOP_BOT_ÄÄRIS = (AKNAK6RGUS - LAUAK6RGUS*KASTISUURUS)//2
-VASAK_ÄÄRIS   = KASTISUURUS+100
+VASAK_ÄÄRIS   = KASTISUURUS
 PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
 ############### 640 - (10*20 + 20) = 420
 TYHI_RUUT = "."
@@ -217,7 +217,6 @@ def tee_tyhi_laud():
     laud = []
     for i in range(LAUAK6RGUS):
         laud.append([TYHI_RUUT] * LAUALAIUS)
-    print(laud)
     return laud
 
 def terminaator():
@@ -239,38 +238,38 @@ def n2ita_tekstiga_akent(tekst):
     DISPLAY.blit(titleSurf, titleRect)
 
     nupuvajutusSurf, nupuvajutusRect = tee_teksti_objekt("Vajuta any key et mängida", V2IKEFONT, VALGE)
-    nupuvajutusRect.center = (AKNALAIUS//2, AKNAK6RGUS//2+100)
+    nupuvajutusRect.center = (AKNALAIUS//2, AKNAK6RGUS//2+80)
     DISPLAY.blit(nupuvajutusSurf, nupuvajutusRect)
     
-    for k in range(AKNALAIUS//20):
+    for k in range(AKNALAIUS//KASTISUURUS+1):
         for i in range(0,5):
                 while True:
                     VARV = random.choice(list(V2RVID.values()))
                     if VARV != TYHI_RUUT:
                         break
                 if i <=2:
-                    joonistakast(VARV,0,0,k*20,i*20)
+                    joonistakast(VARV,0,0,k*KASTISUURUS,i*KASTISUURUS)
                 elif i == 3:
                     if random.randint(1,5) <=3:
-                        joonistakast(VARV,0,0,k*20,i*20)
+                        joonistakast(VARV,0,0,k*KASTISUURUS,i*KASTISUURUS)
                 else:
                     if random.randint(1,4) <=1:
-                        joonistakast(VARV,0,0,k*20,i*20)
+                        joonistakast(VARV,0,0,k*KASTISUURUS,i*KASTISUURUS)
 
-    for k in range(AKNALAIUS//20):
+    for k in range(AKNALAIUS//KASTISUURUS+1):
         for i in range(0,5):
                 while True:
                     VARV = random.choice(list(V2RVID.values()))
                     if VARV != TYHI_RUUT:
                         break
                 if i <=2:
-                    joonistakast(VARV,0,0,k*20,AKNAK6RGUS-i*20-20)
+                    joonistakast(VARV,0,0,k*KASTISUURUS,AKNAK6RGUS-i*KASTISUURUS-KASTISUURUS)
                 elif i == 3:
                     if random.randint(1,5) <=3:
-                        joonistakast(VARV,0,0,k*20,AKNAK6RGUS-i*20-20)
+                        joonistakast(VARV,0,0,k*KASTISUURUS,AKNAK6RGUS-i*KASTISUURUS-KASTISUURUS)
                 else:
                     if random.randint(1,4) <=1:
-                        joonistakast(VARV,0,0,k*20,AKNAK6RGUS-i*20-20)
+                        joonistakast(VARV,0,0,k*KASTISUURUS,AKNAK6RGUS-i*KASTISUURUS-KASTISUURUS)
 
     while kontrolli_nupuvajutust() == None:
         pygame.display.update()
@@ -312,12 +311,12 @@ def joonistalaud(m2ngulaud):
 def joonistaseis(skoor, level):
     skoorSurf = V2IKEFONT.render("Skoor: %s" % skoor, True, VALGE)
     skoorRect = skoorSurf.get_rect()
-    skoorRect.topleft = (AKNALAIUS - 100, 20) # ajutine
+    skoorRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 20) # ajutine
     DISPLAY.blit(skoorSurf, skoorRect)
 
     levelSurf = V2IKEFONT.render("Level: %s" % level, True, VALGE)
     levelRect = levelSurf.get_rect()
-    levelRect.topleft = (AKNALAIUS - 100, 50) # see on ajutine
+    levelRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 50) # see on ajutine
     DISPLAY.blit(levelSurf, levelRect)
 
 
