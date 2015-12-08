@@ -9,7 +9,7 @@ import pygame, random, sys, time
 from pygame.locals import *
 
 
-FPS = 60
+FPS = 25
 AKNAK6RGUS = 480
 AKNALAIUS  = 650
 KASTISUURUS= 25
@@ -224,13 +224,13 @@ def startYOUR_ENGINES():
     
     # Mängu loop
     while True:
-        #if langevklots == None:
-         #   langevklots = j2rgmineklots
-          #  j2rgmineklots = teeuusklots()
-            #aegmidagi
+        if langevklots == None:
+            langevklots = j2rgmineklots
+            j2rgmineklots = teeuusklots()
+            kukkumis_aeg = time.time()
 
-            #if not sobiv pos
-            #   return #mängläbi, ei mahu lauale
+            if not onsobivasend(laud, langevklots):
+                return
         kontrolli_quiti()
         for event in pygame.event.get():
             if event.type == KEYUP:
@@ -477,7 +477,7 @@ def onsobivasend(laud, klots, adjx=0, adjy=0):
             print(laud)
             print(x + klots['x'] + adjx)
             print(y + klots['y'] + adjy)
-            if laud[x + klots['x'] + adjx][y + klots['y'] + adjy] != TYHI_RUUT:
+            if laud[y + klots['y'] + adjy][x + klots['x'] + adjx] != TYHI_RUUT:
                 return False
     return True
     
