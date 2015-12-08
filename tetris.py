@@ -9,7 +9,7 @@ import pygame, random, sys
 from pygame.locals import *
 
 
-FPS = 1
+FPS = 60
 AKNAK6RGUS = 480
 AKNALAIUS  = 640
 KASTISUURUS= 20
@@ -208,7 +208,7 @@ def startYOUR_ENGINES():
         #if langevklots != None:
         #   joonistaklots(langevklots)
         
-        # pygame.display.update()
+        pygame.display.update()
         KELL.tick(FPS)
 
 def tee_tyhi_laud():
