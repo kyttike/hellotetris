@@ -490,7 +490,7 @@ def arvuta_level_ja_langemissagedus(skoor):
 
 def ont2isrida(laud, y):
     for x in range(LAUALAIUS):
-        if laud[x][y] == TYHI_RUUT:
+        if laud[y][x] == TYHI_RUUT:
             return False
     return True
 
@@ -501,9 +501,9 @@ def eemaldat2isread(laud):
         if ont2isrida(laud, y):
             for yleminealla in range(y, 0, -1):
                 for x in range(LAUALAIUS):
-                    laud[x][yleminealla] = laud[x][yleminealla-1]
+                    laud[yleminealla][x] = laud[yleminealla-1][x]
             for x in range(LAUALAIUS):
-                board[x][0] = TYHI_RUUT
+                laud[0][x] = TYHI_RUUT
             eemaldatud += 1
         else:
             y -= 1
