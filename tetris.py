@@ -302,10 +302,10 @@ def joonistakast(v2rv, ruudustikx, ruudustiky, lauax=None, lauay=None):
 
 def joonistalaud(m2ngulaud):
     #Ilusad ajsad ümber mängulaua on vaja ise leiutada
-
-    for y in range(LAUAK6RGUS):
-        for x in range(LAUALAIUS):
-            joonistakast(V2RVID[m2ngulaud[y][x]],x,y)
+    pygame.draw.rect(DISPLAY, SININE, (VASAK_ÄÄRIS ,TOP_BOT_ÄÄRIS, (LAUALAIUS * KASTISUURUS), (LAUAK6RGUS * KASTISUURUS)), 10)
+    for x in range(LAUALAIUS):
+        for y in range(LAUAK6RGUS):
+            joonistakast(V2RVID[m2ngulaud[x][y]],x,y)
 
 def joonistaseis(skoor, level):
     skoorSurf = V2IKEFONT.render("Skoor: %s" % skoor, True, VALGE)
