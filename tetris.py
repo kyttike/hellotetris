@@ -196,16 +196,44 @@ def theheartandsouloftheoperation():
 def startYOUR_ENGINES():
     # Muutujad alguses
     laud = tee_tyhi_laud()
-    seis = 0
-    level = 1 # tuleb teha funktsiooniga, et arvutaks
+    #aeg
+    #aeg
+    #aeg
+    skoor = 0
+    level, langemiskiirus = arvuta_level_ja_langemiskiirus(skoor)
+    liigub_alla = False
+    liigub_paremale = False
+    liigub_vasakule = False
 
+    #langevklots = teeuusklots()
+    #j2rgmineklots = teeuusklots()
+    
     # Mängu loop
     while True:
+        #if langevklots == None:
+         #   langevklots = j2rgmineklots
+          #  j2rgmineklots = teeuusklots()
+            #aegmidagi
 
+            #if not sobiv pos
+            #   return #mängläbi, ei mahu lauale
+        kontrolli_quiti()
+        for event in pygame.event.get():
+            if event.type == KEYUP:
+                if (event.key == K_p):
+                    DISPLAY.fill(TAUSTAV2RV)
+                    n2ita_tekstiga_akent("""print("Hello PAUS")""")
+                elif (event.key == K_LEFT or event.key == K_a):
+                    liigub_vasakule = False
+                elif (event.key == K_RIGHT or event.key == K_d):
+                    liigub_paremale = False
+                elif (event.key == K_DOWN or event.key == K_s):
+                    liigub_alla = False
+                    
         # Joonistamisfunktsioonid
         DISPLAY.fill(TAUSTAV2RV)
         joonistalaud(laud)
-        joonistaseis(seis, level)
+        joonistaseis(skoor, level)
         #joonistauusklots(uusklots)
         #if langevklots != None:
         #   joonistaklots(langevklots)
@@ -319,11 +347,22 @@ def joonistaseis(skoor, level):
     levelRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 50) # see on ajutine
     DISPLAY.blit(levelSurf, levelRect)
 
+##    readSurf = V2IKEFONT.render("Read: %s" % read, True, VALGE)
+##    readRect = readSurf.get_rect()
+##    readRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 80) # see on ajutine
+##    DISPLAY.blit(readSurf, readRect)
 
 def ruudustikTOlaud(ruudustikx, ruudustiky):
     lauax = VASAK_ÄÄRIS + (ruudustikx * KASTISUURUS)
     lauay = TOP_BOT_ÄÄRIS + (ruudustiky * KASTISUURUS)
     return lauax, lauay
+
+def arvuta_level_ja_langemiskiirus(skoor):
+    #langemiskiirus on sekundites, et
+    #mitu sekundit kulub enne kui klots liigub ühe ruudu võrra
+    level = int(skoor//10)+1
+    langemiskiirus = 0.3 - (level * 0.02)
+    return level, langemiskiirus
 
 #print(tee_tyhi_laud())
 theheartandsouloftheoperation() 
