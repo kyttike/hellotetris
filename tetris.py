@@ -367,12 +367,13 @@ def joonistaseis(skoor, level):
     levelRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 50) # see on ajutine
     DISPLAY.blit(levelSurf, levelRect)
 
-<<<<<<< HEAD
+########
 ##    readSurf = V2IKEFONT.render("Read: %s" % read, True, VALGE)
 ##    readRect = readSurf.get_rect()
 ##    readRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 80) # see on ajutine
 ##    DISPLAY.blit(readSurf, readRect)
-=======
+########
+
 def joonistaklots(klots, lauax=None, lauay=None):
     joonistan = KUJUNDID[klots["kuju"]][klots["asend"]]
     if lauax == None and lauay == None:
@@ -391,7 +392,6 @@ def joonistauusklots(klots):
     joonistaklots(klots,(AKNALAIUS-120), 100)
     return
 
->>>>>>> origin/master
 
 def ruudustikTOlaud(ruudustikx, ruudustiky):
     lauax = VASAK_ÄÄRIS + (ruudustikx * KASTISUURUS)
