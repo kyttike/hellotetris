@@ -406,8 +406,8 @@ def joonistakast(v2rv, ruudustikx, ruudustiky, lauax=None, lauay=None):
         lauax, lauay = ruudustikTOlaud(ruudustikx, ruudustiky)
     pygame.draw.rect(DISPLAY, MUST, (lauax-1, lauay-1, KASTISUURUS+2, KASTISUURUS+2))
     pygame.draw.rect(DISPLAY, v2rv[1], (lauax+1, lauay+1, KASTISUURUS-2, KASTISUURUS-2))
-    pygame.draw.rect(DISPLAY, v2rv[2], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
-    pygame.draw.rect(DISPLAY, v2rv[0], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, v2rv[0], (lauax+1, lauay+3, KASTISUURUS-4, KASTISUURUS-4))
+    pygame.draw.rect(DISPLAY, v2rv[2], (lauax+3, lauay+1, KASTISUURUS-4, KASTISUURUS-4))
     pygame.draw.rect(DISPLAY, v2rv[1], (lauax+3, lauay+3, KASTISUURUS-6, KASTISUURUS-6))
 
 def joonistalaud(m2ngulaud):
