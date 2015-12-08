@@ -240,7 +240,41 @@ def startYOUR_ENGINES():
                     liigub_paremale = False
                 elif (event.key == K_DOWN or event.key == K_s):
                     liigub_alla = False
-                    
+
+            elif event.type == KEYDOWN:
+                if (event.key == K_LEFT or event.key == K_a) and onsobivasend(laud, langevklots, adjx=-1):
+                    langevklots['x'] -= 1
+                    liigub_vasakule = True
+                    liigub_paremale = False
+                    #aeg
+                elif (event.key == K_RIGHT or event.key == K_d) and onsobivasend(laud, langevklots, adjx=1):
+                    langevklots['x'] += 1
+                    liigub_paremale = True
+                    liigub_vasakule = False
+                    #aeg
+            elif (event.key == K_UP or event.key == K_w):
+                langevklots['asend'] = (langevklots['asend'] + 1) % len(KUJUNDID[langevklots['kuju']])
+                if not onsobivasend(laud, langevklots):
+                    langevklots['asend'] = (langevklots['asend'] - 1) % len(KUJUNDID[langevklots['kuju']])
+            elif (event.key == K_q):
+                langevklots['asend'] = (langevklots['asend'] - 1) % len(KUJUNDID[langevklots['kuju']])
+                if not onsobivasend(laud, langevklots):
+                    langevklots['asend'] = (langevklots['asend'] + 1) % len(KUJUNDID[langevklots['kuju']])
+
+            elif (event.key == K_DOWN or event.key == K_s):
+                liigub_alla = True:
+                if onsobivasend(laud, langevklots, adjy = 1):
+                    langevklots['y'] += 1
+                #aeg
+
+            elif event.key == K_SPACE:
+                liigub_alla = False
+                liigub_paremale = False
+                liigub_vasakule = False
+                for i in range(1, LAIAK6RGUS):
+                    if not onsobivasend(laud, langevklots, adjy=i):
+                        break
+                langevklots['y'] += i - 1
         # Joonistamisfunktsioonid
         DISPLAY.fill(TAUSTAV2RV)
         joonistalaud(laud)
@@ -391,11 +425,32 @@ def joonistauusklots(klots):
     DISPLAY.blit(j2rgmineSurf,j2rgmineRect)
     joonistaklots(klots,(AKNALAIUS - PAREM_ÄÄRIS+20), 110)
 
+def lisalauale(laud, klots):
+    for x in range(KUJUNDILAIUS):
+        for y in range(KUJUNDIK6RGUS):
+            if KUJUNDID[klots['kuju']][klots['asend']][y][x] != TYHI_RUUT:
+                laud[x + klots['x']][y + klots['y']] = klots['v2rv']
 
 def ruudustikTOlaud(ruudustikx, ruudustiky):
     lauax = VASAK_ÄÄRIS + (ruudustikx * KASTISUURUS)
     lauay = TOP_BOT_ÄÄRIS + (ruudustiky * KASTISUURUS)
     return lauax, lauay
+
+def onlaual(x, y):
+    return x >= 0 and x < LAUALAIUS and y < LAUAK6RGUS
+
+def onsobivasend(laud, klots, adjx=0, adjy=0):
+    for x in range(KUJUNDILAIUS):
+        for y in range(KUJUNDIK6RGUS):
+            lauastk6rgemal = y + klots['y'] + adjy < 0
+            if lauastk6rgemal or KUJUNDID[klots['kuju']][klots["asend"]][y][x] == TYHI_RUUT:
+                continue
+            if not onlaual(x + klots['x'] + adjx, y + klots['y'] + adjy):
+                return False
+            if laud[x + klots['x'] + ajdx][y + klots['y'] + adjy] != TYHI_RUUT:
+                return False
+    return True
+    
 
 def arvuta_level_ja_langemiskiirus(skoor):
     #langemiskiirus on sekundites, et
