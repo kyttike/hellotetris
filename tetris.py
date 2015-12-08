@@ -101,7 +101,7 @@ O_KUJUND = [[".....",
 I_KUJUND = [["..O..",
              "..O..",
              "..O..",
-             "..O.."
+             "..O..",
              "....."],
             [".....",
              ".....",
@@ -197,7 +197,7 @@ def theheartandsouloftheoperation():
     SUURFONT   = pygame.font.Font('freesansbold.ttf', 50)
     V2IKEFONT  = pygame.font.Font('freesansbold.ttf', 18)
     pygame.display.set_caption('HELLO TETRIS')
-    n2ita_tekstiga_akent("""print("Hello TETRIS")""")
+    n2ita_tekstiga_akent("""print("Hello TETRIS")""",VALGE)
     #print("YOU WIN")
     #terminaator()
     while True: #mäng käib
@@ -233,7 +233,7 @@ def startYOUR_ENGINES():
             if event.type == KEYUP:
                 if (event.key == K_p):
                     DISPLAY.fill(TAUSTAV2RV)
-                    n2ita_tekstiga_akent("""print("Hello PAUS")""")
+                    n2ita_tekstiga_akent("""print("Hello PAUS")""",MUST)
                 elif (event.key == K_LEFT or event.key == K_a):
                     liigub_vasakule = False
                 elif (event.key == K_RIGHT or event.key == K_d):
@@ -270,13 +270,13 @@ def kontrolli_quiti():
             terminaator()
         pygame.event.post(event)
 
-def n2ita_tekstiga_akent(tekst):
+def n2ita_tekstiga_akent(tekst,v2rv):
     #paneme aknasse teksti mis muutub kui vajutada nuppu
-    titleSurf, titleRect = tee_teksti_objekt(tekst, SUURFONT, VALGE)
+    titleSurf, titleRect = tee_teksti_objekt(tekst, SUURFONT, v2rv)
     titleRect.center = (AKNALAIUS//2, AKNAK6RGUS//2)
     DISPLAY.blit(titleSurf, titleRect)
 
-    nupuvajutusSurf, nupuvajutusRect = tee_teksti_objekt("Vajuta any key et mängida", V2IKEFONT, VALGE)
+    nupuvajutusSurf, nupuvajutusRect = tee_teksti_objekt("Vajuta any key et mängida", V2IKEFONT, v2rv)
     nupuvajutusRect.center = (AKNALAIUS//2, AKNAK6RGUS//2+80)
     DISPLAY.blit(nupuvajutusSurf, nupuvajutusRect)
     
@@ -382,15 +382,14 @@ def joonistaklots(klots, lauax=None, lauay=None):
     for x in range(KUJUNDILAIUS):
         for y in range(KUJUNDIK6RGUS):
             if joonistan[y][x] != TYHI_RUUT:
-                joonistakast(klots["v2rv"], None, None, lauax + (x*KASTISUURUS), lauay + (y*KASTISUURUS))
+                joonistakast(V2RVID[klots["v2rv"]], None, None, lauax + (x*KASTISUURUS), lauay + (y*KASTISUURUS))
 
 def joonistauusklots(klots):
     j2rgmineSurf = V2IKEFONT.render("Järgmine:", True, TEKSTIV2RV)
     j2rgmineRect = j2rgmineSurf.get_rect()
-    j2rgmineRect.topleft = (AKNALAIUS-120, 80)
+    j2rgmineRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 80)
     DISPLAY.blit(j2rgmineSurf,j2rgmineRect)
-    joonistaklots(klots,(AKNALAIUS-120), 100)
-    return
+    joonistaklots(klots,(AKNALAIUS - PAREM_ÄÄRIS+20), 110)
 
 
 def ruudustikTOlaud(ruudustikx, ruudustiky):
