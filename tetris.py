@@ -294,7 +294,7 @@ def startYOUR_ENGINES():
         if time.time() - kukkumis_aeg > langemissagedus:
             if not onsobivasend(laud, langevklots, adjy=1):
                 lisalauale(laud, langevklots)
-                skoor += 1
+                skoor += eemaldat2isread(laud)
                 level, langemissagedus = arvuta_level_ja_langemissagedus(skoor)
                 langevklots = None
             else:
