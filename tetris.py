@@ -205,6 +205,7 @@ def theheartandsouloftheoperation():
         startYOUR_ENGINES()
         DISPLAY.fill(MUST)
         n2ita_tekstiga_akent("Game over", VALGE)
+        pygame.time.wait(500)
 
 def startYOUR_ENGINES():
     laud = tee_tyhi_laud()
@@ -505,7 +506,7 @@ def arvuta_level_ja_langemissagedus(skoor):
     #langemissagedus on sekundites, et
     #mitu sekundit kulub enne kui klots liigub ühe ruudu võrra
     level = int(skoor//10)+1
-    langemissagedus = 0.27 - (level * 0.02)
+    langemissagedus = 0.27 - (level * 0.01)
     return level, langemissagedus
 
 
