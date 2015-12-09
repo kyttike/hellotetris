@@ -489,6 +489,8 @@ def arvuta_level_ja_langemissagedus(skoor):
     langemissagedus = 0.27 - (level * 0.01)
     return level, langemissagedus
 
+
+
 def ont2isrida(laud, y):
     for x in range(LAUALAIUS):
         if laud[y][x] == TYHI_RUUT:
@@ -509,5 +511,5 @@ def eemaldat2isread(laud):
         else:
             y -= 1
     return eemaldatud
-#print(tee_tyhi_laud())
+
 theheartandsouloftheoperation() 
