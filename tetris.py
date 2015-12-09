@@ -280,6 +280,7 @@ def startYOUR_ENGINES():
                         if not onsobivasend(laud, langevklots, adjy=i):
                             break
                     langevklots['y'] += i - 1
+                    lisalauale(laud, langevklots)
                     
         if (liigub_vasakule or liigub_paremale) and time.time() - kylg_aeg > KYLGSAGEDUS:
             if liigub_vasakule and onsobivasend(laud, langevklots, adjx=-1):
