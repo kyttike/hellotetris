@@ -24,7 +24,7 @@ TYHI_RUUT       = "."
 KUJUNDILAIUS    = 5
 KUJUNDIK6RGUS   = 5
 
-KYLGSAGEDUS = 0.15
+KYLGSAGEDUS = 0.1
 ALLAHSAGEDUS = 0.1
 
 #Värvide defineerimine
@@ -261,10 +261,10 @@ def startYOUR_ENGINES():
                     langevklots['asend'] = (langevklots['asend'] + 1) % len(KUJUNDID[langevklots['kuju']])
                     if not onsobivasend(laud, langevklots):
                         langevklots['asend'] = (langevklots['asend'] - 1) % len(KUJUNDID[langevklots['kuju']])
-                elif (event.key == K_q):
-                    langevklots['asend'] = (langevklots['asend'] - 1) % len(KUJUNDID[langevklots['kuju']])
-                    if not onsobivasend(laud, langevklots):
-                        langevklots['asend'] = (langevklots['asend'] + 1) % len(KUJUNDID[langevklots['kuju']])
+##                elif (event.key == K_q):
+##                    langevklots['asend'] = (langevklots['asend'] - 1) % len(KUJUNDID[langevklots['kuju']])
+##                    if not onsobivasend(laud, langevklots):
+##                        langevklots['asend'] = (langevklots['asend'] + 1) % len(KUJUNDID[langevklots['kuju']])
 
                 elif (event.key == K_DOWN or event.key == K_s):
                     liigub_alla = True
@@ -281,6 +281,23 @@ def startYOUR_ENGINES():
                             break
                     langevklots['y'] += i - 1
                     lisalauale(laud, langevklots)
+                elif event.key == K_e:
+                    liigub_alla = False
+                    liigub_paremale = False
+                    liigub_vasakule = False
+                    for i in range(1, LAUALAIUS):
+                        if not onsobivasend(laud, langevklots, adjx=i):
+                            break
+                    langevklots['x'] += i - 1
+                elif event.key == K_q:
+                    liigub_alla = False
+                    liigub_paremale = False
+                    liigub_vasakule = False
+                    for i in range(1, LAUALAIUS):
+                        if not onsobivasend(laud, langevklots, adjx=-i):
+                            break
+                    langevklots['x'] -= i -1
+                    
                     
         if (liigub_vasakule or liigub_paremale) and time.time() - kylg_aeg > KYLGSAGEDUS:
             if liigub_vasakule and onsobivasend(laud, langevklots, adjx=-1):
