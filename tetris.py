@@ -194,7 +194,7 @@ KUJUNDV2RV = {"I": "ORANZ",
 
 
 def theheartandsouloftheoperation():
-    global DISPLAY, KELL, SUURFONT, V2IKEFONT, paigutusheli, reaheli
+    global DISPLAY, KELL, SUURFONT, V2IKEFONT
     pygame.init()
     KELL = pygame.time.Clock()
     DISPLAY = pygame.display.set_mode((AKNALAIUS, AKNAK6RGUS))
@@ -202,13 +202,8 @@ def theheartandsouloftheoperation():
     V2IKEFONT  = pygame.font.Font('freesansbold.ttf', 18)
     pygame.display.set_caption('HELLO TETRIS')
     n2ita_tekstiga_akent("""print("Hello TETRIS")""",VALGE)
-    paigutusheli = pygame.mixer.Sound("klots.ogg")
-    reaheli      = pygame.mixer.Sound("rida.ogg")
     while True: #mäng käib
-        pygame.mixer.music.load("taust.ogg")
-        pygame.mixer.music.play(-1,0.0)
         startYOUR_ENGINES()
-        pygame.mixer.music.stop()
         DISPLAY.fill(MUST)
         n2ita_tekstiga_akent("Game over", VALGE)
         pygame.time.wait(500)
@@ -241,9 +236,7 @@ def startYOUR_ENGINES():
             if event.type == KEYUP:
                 if (event.key == K_p):
                     DISPLAY.fill(TAUSTAV2RV)
-                    pygame.mixer.music.stop()
                     n2ita_tekstiga_akent("""print("Hello PAUS")""",MUST)
-                    pygame.mixer.music.play(-1, 0.0)
                     kukkumis_aeg = time.time()
                     allah_aeg = time.time()
                     kylg_aeg = time.time()
@@ -288,7 +281,7 @@ def startYOUR_ENGINES():
                         if not onsobivasend(laud, langevklots, adjy=i):
                             break
                     langevklots['y'] += i - 1
-                    lisalauale(laud, langevklots, False)
+                    lisalauale(laud, langevklots)
                 elif event.key == K_e:
                     liigub_alla = False
                     liigub_paremale = False
@@ -480,9 +473,7 @@ def joonistauusklots(klots):
     DISPLAY.blit(j2rgmineSurf,j2rgmineRect)
     joonistaklots(klots,(AKNALAIUS - PAREM_ÄÄRIS+20), 110)
 
-def lisalauale(laud, klots, jahheli=True):
-    if jahheli:
-        paigutusheli.play()
+def lisalauale(laud, klots):
     for x in range(KUJUNDILAIUS):
         for y in range(KUJUNDIK6RGUS):
             if KUJUNDID[klots['kuju']][klots['asend']][y][x] != TYHI_RUUT:
@@ -540,8 +531,6 @@ def eemaldat2isread(laud):
             eemaldatud += 1
         else:
             y -= 1
-    if eemaldatud >= 1:
-        reaheli.play()
     return eemaldatud
 
 theheartandsouloftheoperation() 
