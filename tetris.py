@@ -15,11 +15,11 @@ AKNALAIUS  = 650
 KASTISUURUS= 25
 LAUALAIUS  = 10
 LAUAK6RGUS = 18
-# lauasuurus on kastisuuruse järgi, ehk laius on 10*20 = 200 pikslit
+# lauasuurus on kastisuuruse järgi, ehk laius on 10*18 = 180 pikslit
 TOP_BOT_ÄÄRIS = (AKNAK6RGUS - LAUAK6RGUS*KASTISUURUS)//2
 VASAK_ÄÄRIS   = KASTISUURUS
 PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
-############### 640 - (10*20 + 20) = 420
+############### 640 - (10*18 + 20) = 440
 TYHI_RUUT       = "."
 KUJUNDILAIUS    = 5
 KUJUNDIK6RGUS   = 5
@@ -205,10 +205,11 @@ def theheartandsouloftheoperation():
     while True: #mäng käib
         startYOUR_ENGINES()
         DISPLAY.fill(MUST)
-        n2ita_tekstiga_akent("Game over", VALGE)
+        n2ita_tekstiga_akent("Game over", VALGE, ("Skoor: " + str(skoor)))
         pygame.time.wait(500)
 
 def startYOUR_ENGINES():
+    global skoor
     laud = tee_tyhi_laud()
     allah_aeg = time.time()
     kylg_aeg = time.time()
@@ -350,7 +351,7 @@ def kontrolli_quiti():
             terminaator()
         pygame.event.post(event)
 
-def n2ita_tekstiga_akent(tekst,v2rv):
+def n2ita_tekstiga_akent(tekst,v2rv,teinerida=None):
     #paneme aknasse teksti mis muutub kui vajutada nuppu
     titleSurf, titleRect = tee_teksti_objekt(tekst, SUURFONT, v2rv)
     titleRect.center = (AKNALAIUS//2, AKNAK6RGUS//2)
@@ -359,6 +360,11 @@ def n2ita_tekstiga_akent(tekst,v2rv):
     nupuvajutusSurf, nupuvajutusRect = tee_teksti_objekt("Vajuta any key et mängida", V2IKEFONT, v2rv)
     nupuvajutusRect.center = (AKNALAIUS//2, AKNAK6RGUS//2+80)
     DISPLAY.blit(nupuvajutusSurf, nupuvajutusRect)
+
+    if teinerida != None:
+        teineridaSurf, teineridaRect = tee_teksti_objekt(teinerida, V2IKEFONT, v2rv)
+        teineridaRect.center = (AKNALAIUS//2, AKNAK6RGUS//2+40)
+        DISPLAY.blit(teineridaSurf, teineridaRect) 
     
     for k in range(AKNALAIUS//KASTISUURUS+1):
         for i in range(0,5):
