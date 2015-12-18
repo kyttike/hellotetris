@@ -15,16 +15,14 @@ AKNALAIUS  = 650
 KASTISUURUS= 25
 LAUALAIUS  = 10
 LAUAK6RGUS = 18
-# lauasuurus on kastisuuruse järgi, ehk laius on 10*18 = 180 pikslit
 TOP_BOT_ÄÄRIS = (AKNAK6RGUS - LAUAK6RGUS*KASTISUURUS)//2
 VASAK_ÄÄRIS   = KASTISUURUS
 PAREM_ÄÄRIS   = AKNALAIUS - (LAUALAIUS*KASTISUURUS + VASAK_ÄÄRIS)
-############### 640 - (10*18 + 20) = 440
 TYHI_RUUT       = "."
 KUJUNDILAIUS    = 5
 KUJUNDIK6RGUS   = 5
 
-KYLGSAGEDUS = 0.1
+KYLGSAGEDUS = 0.15
 ALLAHSAGEDUS = 0.1
 
 #Värvide defineerimine
@@ -198,8 +196,8 @@ def theheartandsouloftheoperation():
     pygame.init()
     KELL = pygame.time.Clock()
     DISPLAY = pygame.display.set_mode((AKNALAIUS, AKNAK6RGUS))
-    SUURFONT   = pygame.font.Font('freesansbold.ttf', 50)
-    V2IKEFONT  = pygame.font.Font('freesansbold.ttf', 18)
+    SUURFONT   = pygame.font.SysFont('impact', 50)
+    V2IKEFONT  = pygame.font.SysFont('impact', 18)
     pygame.display.set_caption('HELLO TETRIS')
     n2ita_tekstiga_akent("""print("Hello TETRIS")""",VALGE)
     while True: #mäng käib
@@ -207,6 +205,7 @@ def theheartandsouloftheoperation():
         DISPLAY.fill(MUST)
         n2ita_tekstiga_akent("Game over", VALGE, ("Skoor: " + str(skoor)))
         pygame.time.wait(500)
+
 
 def startYOUR_ENGINES():
     global skoor
@@ -501,9 +500,6 @@ def onsobivasend(laud, klots, adjx=0, adjy=0):
                 continue
             if not onlaual(x + klots['x'] + adjx, y + klots['y'] + adjy):
                 return False
-##            print(laud)
-##            print(x + klots['x'] + adjx)
-##            print(y + klots['y'] + adjy)
             if laud[y + klots['y'] + adjy][x + klots['x'] + adjx] != TYHI_RUUT:
                 return False
     return True
