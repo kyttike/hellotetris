@@ -228,6 +228,7 @@ def startYOUR_ENGINES():
             langevklots = j2rgmineklots
             j2rgmineklots = teeuusklots()
             kukkumis_aeg = time.time()
+            print(j2rgmineklots)
 
             if not onsobivasend(laud, langevklots):
                 return
@@ -246,6 +247,10 @@ def startYOUR_ENGINES():
                     liigub_paremale = False
                 elif (event.key == K_DOWN or event.key == K_s):
                     liigub_alla = False
+                elif event.key == K_t:
+                    while kontrolli_nupuvajutust() == None:
+                        pygame.display.update()
+                        KELL.tick()
 
             elif event.type == KEYDOWN:
                 if (event.key == K_LEFT or event.key == K_a) and onsobivasend(laud, langevklots, adjx=-1):
@@ -298,6 +303,7 @@ def startYOUR_ENGINES():
                         if not onsobivasend(laud, langevklots, adjx=-i):
                             break
                     langevklots['x'] -= i -1
+                    
                     
                     
         if (liigub_vasakule or liigub_paremale) and time.time() - kylg_aeg > KYLGSAGEDUS:
@@ -439,6 +445,9 @@ def joonistakast(v2rv, ruudustikx, ruudustiky, lauax=None, lauay=None):
 def joonistalaud(m2ngulaud):
     pygame.draw.rect(DISPLAY, LAUA22R, (VASAK_ÄÄRIS-4 ,TOP_BOT_ÄÄRIS-4, (LAUALAIUS * KASTISUURUS)+8, (LAUAK6RGUS * KASTISUURUS)+8), 0)
     pygame.draw.rect(DISPLAY, LAUAV2RV, (VASAK_ÄÄRIS ,TOP_BOT_ÄÄRIS, (LAUALAIUS * KASTISUURUS), (LAUAK6RGUS * KASTISUURUS)), 0)
+    pygame.draw.rect(DISPLAY, LAUA22R, (AKNALAIUS - PAREM_ÄÄRIS+20-4 ,TOP_BOT_ÄÄRIS+KASTISUURUS*3+10-4, (4 * KASTISUURUS)+8, (4 * KASTISUURUS)+8), 0)
+    pygame.draw.rect(DISPLAY, LAUAV2RV, (AKNALAIUS - PAREM_ÄÄRIS+20 ,TOP_BOT_ÄÄRIS+KASTISUURUS*3+10, (4 * KASTISUURUS), (4 * KASTISUURUS)), 0)
+
     for x in range(LAUALAIUS):
         for y in range(LAUAK6RGUS):
             joonistakast(V2RVID[m2ngulaud[y][x]],x,y)
@@ -446,12 +455,12 @@ def joonistalaud(m2ngulaud):
 def joonistaseis(skoor, level):
     skoorSurf = V2IKEFONT.render("Skoor: %s" % skoor, True, TEKSTIV2RV)
     skoorRect = skoorSurf.get_rect()
-    skoorRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 20) # ajutine
+    skoorRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 10) # ajutine
     DISPLAY.blit(skoorSurf, skoorRect)
 
     levelSurf = V2IKEFONT.render("Level: %s" % level, True, TEKSTIV2RV)
     levelRect = levelSurf.get_rect()
-    levelRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 50) # see on ajutine
+    levelRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 40) # see on ajutine
     DISPLAY.blit(levelSurf, levelRect)
 
 ########
@@ -474,9 +483,10 @@ def joonistaklots(klots, lauax=None, lauay=None):
 def joonistauusklots(klots):
     j2rgmineSurf = V2IKEFONT.render("Järgmine:", True, TEKSTIV2RV)
     j2rgmineRect = j2rgmineSurf.get_rect()
-    j2rgmineRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 80)
+    j2rgmineRect.topleft = (AKNALAIUS - PAREM_ÄÄRIS+20, 70)
     DISPLAY.blit(j2rgmineSurf,j2rgmineRect)
-    joonistaklots(klots,(AKNALAIUS - PAREM_ÄÄRIS+20), 110)
+    
+    joonistaklots(klots,(AKNALAIUS - PAREM_ÄÄRIS+20), 100)
 
 def lisalauale(laud, klots):
     for x in range(KUJUNDILAIUS):
